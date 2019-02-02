@@ -3,7 +3,7 @@
     <output-path>$PROJECT_DIR$/out/artifacts/unnamed</output-path>
     <root id="archive" name="unnamed.war">
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/web.xml" output-file-name="MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
       </element>
     </root>
   </artifact>

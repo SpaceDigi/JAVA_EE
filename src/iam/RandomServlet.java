@@ -1,33 +1,35 @@
 package iam;
 
-
-import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
-@WebServlet(name = "/MyServlet", urlPatterns = {"/"})
-public class MyServlet extends HttpServlet {
-    public MyServlet() {
+@WebServlet(name = "/RandomServlet", urlPatterns = {"/Random"})
+public class RandomServlet extends HttpServlet {
+    public RandomServlet() {
     }
 
     protected void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
-        String user = req.getParameter("login");
-        String pass = req.getParameter("password");
-        if(user!=null && pass!=null&&user.equals("admin")&&(pass.equals("admin"))){
-            resp.sendRedirect("random.jsp");
-        }
-        else{
-            PrintWriter pWriter = resp.getWriter();
-            pWriter.println("Oops.");
-            RequestDispatcher rd = req.getRequestDispatcher("main.jsp");
-            rd.include(req,resp);
-        }
+        double perc = Math.random();
+        String res;
+        if(perc>0.5)
+            res = "Yes";
+        else
+            res ="No";
+        PrintWriter pWriter = resp.getWriter();
+        pWriter.println(res);
+        RequestDispatcher rd = req.getRequestDispatcher("random.jsp");
+        req.setAttribute("rand",res);
+        rd.forward(req,resp);
 
     }
 
@@ -36,6 +38,6 @@ public class MyServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request,response);
+        processRequest(request, response);
     }
 }
